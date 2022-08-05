@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Py-Scripts</title>
+    <link rel="stylesheet" href="stilus.css">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <strong><p>A mai nap dátuma: <div id='today'></div></p></strong>
+    <div class="container">
+        <form>
+            <fieldset>
+                <legend style="margin-top: 25px">ax^2 + bx + c = 0</legend>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="col-form-label col-form-label-lg mt-4"
+                            for="inputLarge">Assign a value to A</label>
+                            <input class="form-control form-control-lg" type="text"
+                            placeholder="Type here..." id="txtA" spellcheck="false"
+                            data-ms-editors="true">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="col-form-label col-form-label-lg mt-4"
+                            for="inputLarge">Assign a value to B</label>
+                            <input class="form-control form-control-lg" type="text"
+                            placeholder="Type here..." id="txtB" spellcheck="false"
+                            data-ms-editors="true">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="col-form-label col-form-label-lg mt-4"
+                            for="inputLarge">Assign a value to C</label>
+                            <input class="form-control form-control-lg" type="text"
+                            placeholder="Type here..." id="txtC" spellcheck="false"
+                            data-ms-editors="true">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="alert alert-dismissible alert-danger">
+                            <strong id="msg">Messages comes here!</strong>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="alert alert-dismissible alert-primary">
+                            <strong>x = </strong>
+                            <a href="#" id="x" class="alert-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="alert alert-dismissible alert-primary">
+                            <strong>x1 = </strong>
+                            <a href="#" id="x1" class="alert-link"></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="alert alert-dismissible alert-primary">
+                            <strong>x2 = </strong>
+                        <a href="#" id="x2" class="alert-link"></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-1">
+                    <button type="button" id="run" class="btn btn-light"
+                    pys-onClick="solve">Solve</button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="reset" class="btn btn-dark"
+                    pys-onClick="solve">Clear</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</div>
+</body>
+<py-script>
+import datetime as dt
+pyscript.write('today', dt.date.today().strftime('%A %B %d, %Y'))
+#________________________________________________________________________
+
+
+#változok megadása
+txtA = Element("txtA"); txtB = Element("txtB"); txtC = Element("txtC"); message = Element("msg")
+result_x = Element("x"); result_x1 = Element("x1"); result_x2 = Element("x2")
+
+def solve(*args, **kwargs):
+    a = int(txtA.value)
+    b = int(txtB.value)
+    c = int(txtC.value)
+    if a == 0:
+        x = -c / b
+        message.write(f"This equation is NOT quadratic!")
+        result_x.write(x)
+    elif b**2 - 4*a*c < 0:
+        message.write("This equation has NO result!")
+    else:
+        x1 = (-b + (b**2 - 4*a*c)**0.5) / (2*a)
+        x2 = (-b + (b**2 - 4*a*c)**0.5) / (2*a)
+        result_x1.write(x1)
+        result_x2.write(x2)
+
+
+</py-script>
+</html>
